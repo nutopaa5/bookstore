@@ -11,7 +11,7 @@ import hh.swd20.bookstore.domain.Book;
 @Controller
 public class BookController {
 	
-		// lähettää selaimeen tyhjän autolomakkeen
+		// lähettää selaimeen kirjan tiedot
 		@RequestMapping(value="/index", method=RequestMethod.GET)
 		public String uusiKirja(Model model, 
 		@RequestParam(value="title") String title,
@@ -20,7 +20,6 @@ public class BookController {
 		@RequestParam(value="isbn") int isbn,
 		@RequestParam(value="price") int price
 		) {
-			
 			// luodaan uusi tyhjä Book-olio
 			Book book1 = new Book();
 			model.addAttribute("title", title);
