@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import hh.swd20.bookstore.domain.Category;
+import hh.swd20.bookstore.domain.CategoryRepository;
 import hh.swd20.bookstore.domain.Book;
 import hh.swd20.bookstore.domain.BookRepository;
 
@@ -19,14 +21,18 @@ public class BookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner bookDemo(BookRepository repository) {
+	public CommandLineRunner bookDemo(BookRepository brepository, CategoryRepository crepository) {
 		return (args) -> {
-			log.info("Save a couple of books");
-			repository.save(new Book("Riku Rantala & Tunna Milonoff", "Selviytymisopas", "9789510434635", "2018", "19,50"));
-			repository.save(new Book("Stephen Hawking", "Brief Answers to the Big Questions", " 9781473695986", "2018", "15,40"));
+			log.info("Save a couple of books");	
+			crepository.save(new Category("Science"));
+			crepository.save(new Category("Business"));
+			crepository.save(new Category("Philosophy"));
+			
+			brepository.save(new Book("R. Rantala & T. Milonoff", "Selviytymisopas: maailma muuttuu...",9789510434635L, 2018, 19.50, crepository.findByName("Science").get(0)));
+			brepository.save(new Book("Stephen Hawking", "Brief Answers to the Big Questions",9781473695986L, 2018, 15.40, crepository.findByName("Science").get(0)));
 			
 			log.info("Fetch all books");
-			for (Book book : repository.findAll()) {
+			for (Book book : brepository.findAll()) {
 				log.info(book.toString());
 			}
 
