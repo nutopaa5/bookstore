@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Book {
@@ -21,6 +23,7 @@ public class Book {
 	private double price;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name="categoryid")
 	private Category category;
 	
@@ -90,7 +93,7 @@ public class Book {
 	public String toString() {
 		if (this.category != null)
 			return "Book [id=" + id + ", title=" + title + ", author=" + author + ", year=" + year + ", isbn=" + isbn + ", price=" + price
-					+ "category =" + this.getCategory() + "]";
+					+ ", category =" + this.getCategory() + "]";
 		else
 			return "Book [id=" + id + ", title=" + title + ", author=" + author + ", year=" + year + ", isbn=" + isbn + ", price=" + price
 				+ "]";
